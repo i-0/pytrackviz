@@ -17,12 +17,23 @@ def dot2graph(dot_graph):
     node_edge_map = {} # {1:[10,11],10:[20,21],...}
     
 
-    for i in dot_graph:
-        for j in i:
+    for i in dot_graph: # for all sequences of tracks 
+        for j in i:     # for all tracks in each sequence
+
             node = j
             edges =find_edges(j,i)
+
             assert(type(edges) == list)
-            node_edge_map[node]=edges
+
+            if node in node_edge_map.keys():
+                tmp_edges = node_edge_map[node] # get existing edges
+                tmp_edges.extend(edges)         # add new found edges
+                tmp_edges_set = set(tmp_edges)  # remove duplicate entries
+                tmp_edges = list(tmp_edges_set) # convert back to list
+
+                node_edge_map[node] = tmp_edges # save in dict
+            else:
+                node_edge_map[node] = edges     # create new list with edges
 
     return node_edge_map
 

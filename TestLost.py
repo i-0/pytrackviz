@@ -38,6 +38,7 @@ class TestLost(unittest.TestCase):
             print ' passed'
 
     def test_dot2graph(self):
+        print "\n:: test_dot2graph"
         dot_graph = [
             [1, 10, 20, 30, 40, 50, 60, 70],
             [1, 10, 20, 30, 41, 70],
@@ -52,12 +53,13 @@ class TestLost(unittest.TestCase):
             11: [],
             20: [30],
             21: [211],
-            30: [40],
+            30: [40, 41],
             40: [50],
+            41: [70],
             50: [60],
             60: [70],
             70: [],
-            211: [212],
+            211: [212, 213],
             212: [30],
             213: [70]
         }
