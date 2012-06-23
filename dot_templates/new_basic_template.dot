@@ -1,5 +1,5 @@
 digraph G {
-  graph [label="an instatrack report {{date}}"]
+  graph [label="an pytrackviz report {{date}}"]
   /* uncomment for a left to right graph: rankdir=LR; */
   /*
    rankdir=LR;
