@@ -37,5 +37,32 @@ class TestLost(unittest.TestCase):
             self.assertEquals(actual,expected)
             print ' passed'
 
+    def test_dot2graph(self):
+        dot_graph = [
+            [1, 10, 20, 30, 40, 50, 60, 70],
+            [1, 10, 20, 30, 41, 70],
+            [1, 10, 21, 211, 212, 30],
+            [1, 10, 21, 211, 213, 70],
+            [1 , 11],
+        ]
+
+        expected = {
+            1: [10, 11],
+            10: [20, 21],
+            11: [],
+            20: [30],
+            21: [211],
+            30: [40],
+            40: [50],
+            50: [60],
+            60: [70],
+            70: [],
+            211: [212],
+            212: [30],
+            213: [70]
+        }
+        actual = lost.dot2graph(dot_graph)
+        self.assertEquals(expected, actual)
+
 if __name__ == '__main__':
     unittest.main()
