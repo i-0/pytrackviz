@@ -1,0 +1,106 @@
+digraph G {
+  graph [label="RU wapmicommonflow KPI overview {{date}}"]
+  /* uncomment for a left to right graph: rankdir=LR; */
+  /*
+   rankdir=LR;
+   */
+  /* Node Names */
+  node [shape=Mrecord];
+ 1 [label="Subscriptions | id: 1 | {{trackCount_1}} "];
+  /*2 [label="Unsubscriptions | id: 2 | {{trackCount_2}} "];*/
+  3 [label="Banner_Clicks | id: 3 | {{trackCount_3}} "];
+  /*4 [label="LP_Views | id: 4 | {{trackCount_4}} "];*/
+  5 [label="endDefault | id: 5 | {{trackCount_5}} "];
+  6 [label="thankYouPage | id: 6 | {{trackCount_6}} "];
+  7 [label="endFlowError | id: 7 | {{trackCount_7}} "];
+  8 [label="MSISDN_Page | id: 8 | {{trackCount_8}} "];
+  9 [label="Not_Supported_Operator | id: 9 | {{trackCount_9}} "];
+  10 [label="CB_MSISDN_Page | id: 10 | {{trackCount_10}} "];
+  11 [label="UserAlreadySubs | id: 11 | {{trackCount_11}} "];
+  12 [label="NotSupportedDevice | id: 12 | {{trackCount_12}} "];
+  /*13 [label="MTS: paid period is not expired | id: 13 | {{trackCount_13}} "];*/
+  /*14 [label="SentMT | id: 14 | {{trackCount_14}} "];*/
+  15 [label="Android_UA_Error | id: 15 | {{trackCount_15}} "];
+  16 [label="MSISDN_Detected | id: 16 | {{trackCount_16}} "];
+  /*17 [label="CB_LP_Views | id: 17 | {{trackCount_17}} "];*/
+  /*18 [label="LP_Clicks | id: 18 | {{trackCount_18}} "];*/
+  19 [label="redirect_to_external_optin_page | id: 19 | {{trackCount_19}} "];
+  20 [label="external_optin_error_page | id: 20 | {{trackCount_20}} "];
+  21 [label="redirect_to_external_optin_page_first | id: 21 | {{trackCount_21}} "];
+  22 [label="user_redirected_to_mts | id: 22 | {{trackCount_22}} "];
+  23 [label="user_returned_from_mts | id: 23 | {{trackCount_23}} "];
+  9991 [label="calculated_lost_users | id: 9991 | {{trackCount_9991}} "];
+  /* 9998 [label="churn after MSISDN detection | id: 9998 | {{trackCount_9998}} "]; */
+
+  /* Transitions */
+  start -> 3;
+/*
+  9 -> 20 [style=invis];
+  10 -> 20 [style=invis];
+  11 -> 20 [style=invis];
+  12 -> 20 [style=invis];
+  */
+  subgraph cluster0 { 
+	color=blue;
+	label = "Happy Path non Wifi";
+	3 -> 16 -> 21 -> 22 -> 23-> 1 -> 6 -> 5 [color=blue];
+  }
+  subgraph cluster1 {
+	color=red;
+	label = "Wifi Happy Flow non google";
+	3 -> 8 -> 19 -> 22 -> 23 -> 1 -> 6 -> 5 [color=red];
+  }
+	subgraph cluster2 {
+	color=green;
+	label="Wifi Happy Flow google";
+	3 -> 10 -> 19 -> 22 -> 23 -> 1 -> 6 -> 5 [color=green];
+  }
+  subgraph cluster3 {
+	color=orange;
+	label="Unsupported UA error";
+	3 -> 12 -> 5 [color=orange];
+  }
+  subgraph cluster4 {
+	color=darkolivegreen;
+	label="Unknown Android UA";
+	3 -> 15 -> 5[color=darkolivegreen];
+  }
+  subgraph cluster5 {
+	color=aquamarine3;
+	label="Unsupported Operator";
+	3 -> 9 -> 5 [color=aquamarine3];
+  }
+  subgraph cluster6 {
+	color=yellow;
+	label="Already Subscribed Wifi non google";
+	3 -> 8 -> 11 -> 5 [color=yellow];
+  }
+  subgraph cluster7 {
+	color=lightblue;
+	label="Already Subscribed Wifi google";
+	3 -> 10 -> 11 -> 5 [color=lightblue];
+  }
+  subgraph cluster8 {
+	color=pink;
+	label="Already Subscribed not Wifi";
+	3 -> 16 -> 11 -> 5 [color=pink];
+  }
+  subgraph cluster9 {
+	color=grey;
+	label="Billing Issues not Wifi";
+	3 -> 16 -> 21 -> 20 -> 5 [color=grey];
+	3 -> 16 -> 21 -> 22 -> 23 -> 20 -> 5 [color=black];
+	/* 3 -> 16 -> 21 -> 22 -> 20 -> 5 [color=grey];*/
+  }
+  subgraph cluster10 {
+	color=purple;
+	label="Billing Issues Wifi non google";
+	3 -> 8 -> 19  -> 20 -> 5 [color=purple];
+	/*3 -> 8 -> 19 -> 22 -> 20 -> 5 [color=purple];*/
+  }
+  subgraph cluster11 {
+	color=brown;
+	label="Billing Issues Wifi google";
+	3 -> 10 -> 19 -> 22 -> 20 -> 5 [color=brown];
+  }
+}

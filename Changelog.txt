@@ -1,0 +1,36 @@
+TODO list:
+0.9-Beta (ongoing)
+	Stability improvements through error handling
+	OO improvements, make App more transparent, encapsulate things in private
+	members and methods
+	2nd level lost tracks, and nth level ones too
+	Implement logging!
+0.8-Beta
+  Changes:
+	New arch separate concerns into the following modules
+	  App
+	  Configuration
+		Common Interface to access configuration parameters
+		  from command line args
+		  from configuration files
+	  TemplateGenerator
+		Simple Factory to provide the App with the template name
+	  TemplateProcessor
+		More or less what now can be found in go.sh
+	  TrackSource
+		Abstraction from DB
+	  TrackData
+		External Data Structures for the Track Data
+		gets the results from the DB query and then processes some things like
+		  lost 1nd level tracks
+		  lost 2nd level tracks
+0.7-Beta (end of prototype phase)
+  Some file maintenance, added a .hgignore file.
+  Minor code changes to improve the mock DBs.
+  Changed config section name to better fit with real DB names.
+0.6-Beta
+0.5-Beta
+0.4-Beta
+0.3-Beta more configuration options
+0.2-Beta added concept of lost tracks
+0.1-Alpha prototype in script form (working)
