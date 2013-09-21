@@ -14,7 +14,7 @@ class ConfigurationTests(unittest.TestCase):
         conf.args = {
             'config_file': file('test/sqlite.conf', 'r'),
             'date': '20120606',
-            'template_files': file('dot_templates/basic_template.dot', 'r')
+            'template_files': file('dot_templates/new_basic_template.dot', 'r')
         }
         expected = 'sqlite:///track_stats_services.db'
         conf.parseConfigFile() 
@@ -24,7 +24,7 @@ class ConfigurationTests(unittest.TestCase):
         conf.args = {
             'config_file': file('test/mysql.conf', 'r'),
             'date': '20120606',
-            'template_files': file('dot_templates/basic_template.dot', 'r')
+            'template_files': file('dot_templates/new_basic_template.dot', 'r')
         }
 
         expected = 'mysql://trackstatrepo:chorizo@192.168.1.126:3306/track_stats_services'
