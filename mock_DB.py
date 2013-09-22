@@ -1,11 +1,11 @@
 #! /usr/bin/env python2.7
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 # Christoph Gierling
-import datetime
+
 from datetime import date
 
+
 def store(tracks, country, date):
-    import sqlalchemy
     from sqlalchemy import create_engine, Table, MetaData, Integer, String, Column
     
     engine = 'sqlite:///track_stats_services.db'
@@ -32,7 +32,7 @@ def store(tracks, country, date):
 tracks = [
     {'row':{'trackId':  1, 'flowType':'commonflow'}, 'count':100 },
     {'row':{'trackId': 10, 'flowType':'commonflow'}, 'count': 85 },
-    {'row':{'trackId': 11, 'flowType':'commonflow'}, 'count': 10 }, # 10 users lost
+    {'row':{'trackId': 11, 'flowType':'commonflow'}, 'count': 10 },  #10 users lost
     {'row':{'trackId': 20, 'flowType':'commonflow'}, 'count': 70 },
     {'row':{'trackId': 21, 'flowType':'commonflow'}, 'count': 15 },
     {'row':{'trackId':211, 'flowType':'commonflow'}, 'count': 15 },
@@ -42,10 +42,10 @@ tracks = [
     {'row':{'trackId': 40, 'flowType':'commonflow'}, 'count':  5 },
     {'row':{'trackId': 41, 'flowType':'commonflow'}, 'count': 55 },
     {'row':{'trackId': 50, 'flowType':'commonflow'}, 'count':  4 },
-    {'row':{'trackId': 60, 'flowType':'commonflow'}, 'count':  3 },# 1 user lost to an Exception
+    {'row':{'trackId': 60, 'flowType':'commonflow'}, 'count':  3 },  #1 user lost to an Exception
     {'row':{'trackId': 70, 'flowType':'commonflow'}, 'count': 13 },
     {'row':{'trackId': 99, 'flowType':'commonflow'}, 'count':  1+1},
 ]
 country = 'ru'
-today = int(date.today().strftime('%Y%m%d')) # date as int in format [ 20120614 ]
+today = int(date.today().strftime('%Y%m%d'))  # date as int in format [ 20120614 ]
 store(tracks, country, today)

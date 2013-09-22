@@ -4,6 +4,7 @@
 import unittest
 import TemplateProcessor
 
+
 class TestTemplateProcessor(unittest.TestCase):
 
     def test_getTrackSource(self):
@@ -21,7 +22,6 @@ class TestTemplateProcessor(unittest.TestCase):
             self.assertTrue(template_processor.matcher.search(line))
 
         print "passed"
-
 
 
 if __name__ == '__main__':

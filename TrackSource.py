@@ -9,11 +9,11 @@
 #   First set a date YYYYMMDD (for example 20120513) for and a country at
 #   the moment 'de', 'uk', 'ru' and 'za' are supported.
 #
-#   Second call the getTrackSource(engine) method. 
+#   Second call the getTrackSource(engine) method.
 #
 # Restrictions:
 #   At  the moment only SQL data sources are supported, also only MySQL
-#   and sqlite are supported as DB back ends.    
+#   and sqlite are supported as DB back ends.
 #
 # TODO:
 #    Implement other data sources as log files and CSV files as data
@@ -23,7 +23,7 @@
 # date:   15.06.2012
 
 
-class TrackSource:
+class TrackSource(object):
     """Gathers the parameters to access the track data and prepares the
     retrieval process, for the moment as SQL statement. The engine and
     sql fields are used by TrackData to populate the TrackData
@@ -36,7 +36,7 @@ class TrackSource:
     engine_str = None   # string as entry parameter for sqlalchemy's
                     # create_engine method, for exmaple
                     # 'sqlite:///:memory:' (see sqlalchemy doc)
-    sql = 'select trackId, count(trackId) from Tracking_Data_%s_%d where flowType = "commonflow" group by trackId' #%s <= country, %d <= date
+    sql = 'select trackId, count(trackId) from Tracking_Data_%s_%d where flowType = "commonflow" group by trackId' #  %s <= country, %d <= date
 
     def setDate(self, date):
         """Sets the date parameter which is used used to resolve the
@@ -58,18 +58,10 @@ class TrackSource:
         date and country specified"""
         return (self.engine_str, self.getSQL())
 
-    # WARNING: Deprecated, and marked for removal! Unless I can think of
-    # a scenario where I could use this setter for injecting some kind of
-    # special behaviour.
-    def setSQL(self, sql):
-        """Setter to access the base SQL statement, keep in mind the
-        country date interpolation."""
-        self.sql = sql
-
     def getSQL(self):
         """Getter which interpolates country and date in the SQL base
         string, used by the getTrackSource method"""
         if type(self.date) == int and type(self.country) == str:
             return self.sql % (self.country, self.date)
         else:
-            raise Exception("Error: You cannot call getSQL() without setting a country as string  and date as int.")
+            raise Exception('Error: You cannot call getSQL() without setting a country as string  and date as int.')

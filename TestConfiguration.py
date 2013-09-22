@@ -4,6 +4,7 @@
 import unittest
 import Configuration
 
+
 class ConfigurationTests(unittest.TestCase):
 
     def test_parseConfigFile(self):
@@ -17,7 +18,7 @@ class ConfigurationTests(unittest.TestCase):
             'template_files': file('dot_templates/new_basic_template.dot', 'r')
         }
         expected = 'sqlite:///track_stats_services.db'
-        conf.parseConfigFile() 
+        conf.parseConfigFile()
         actual = conf.getDbEngine()
         self.assertEqual(expected, actual)
 
@@ -29,7 +30,7 @@ class ConfigurationTests(unittest.TestCase):
 
         expected = 'mysql://trackstatrepo:chorizo@192.168.1.126:3306/track_stats_services'
 
-        conf.parseConfigFile() 
+        conf.parseConfigFile()
         actual = conf.getDbEngine()
 
         self.assertEqual(expected, actual)

@@ -4,6 +4,7 @@
 import unittest
 import TrackSource
 
+
 class TestTrackSource(unittest.TestCase):
 
     def test_getTrackSource_hp(self):
@@ -20,7 +21,7 @@ class TestTrackSource(unittest.TestCase):
 
         actual_engine, actual_sql = track_source.getTrackSource()
         expected_engine_str = 'mysql://tracktatrepo:chorizo@192.168.1.126:3306/track_stats_services'
- 
+
         expected_sql = 'select trackId, count(trackId) from Tracking_Data_ru_20120606 where flowType = "commonflow" group by trackId'
         self.assertEqual(expected_sql, actual_sql)
         self.assertEqual(expected_engine_str, str(actual_engine))
@@ -41,10 +42,7 @@ class TestTrackSource(unittest.TestCase):
             actual_engine, actual_sql = track_source.getTrackSource()
             fail("Exception not caught!")
         except Exception:
-            # all ok, exception caught!
-            # TODO: Interesting, why does the code has an indent err of this bogus line is
-            # missing?
-            print "passed"
+            pass
 
     def test_getTrackSource_check_types(self):
 
@@ -87,16 +85,14 @@ class TestTrackSource(unittest.TestCase):
 
         for i in input:
             date = i['date']
-            # print ':: date [', date, '] type [', type(date), ']'
 
             country =  i['country']
-            # print ':: country [', country, '] type [', type(country), ']'
 
             track_source.setDate(date)
             track_source.setCountry(country)
             track_source.setEngineString(engine)
 
-            print "::\tTest Case [", i['test_case'],"]",
+            print "::\tTest Case [", i['test_case'], "]",
             if i['error'] == 'Exception':
                 try:
                     actual_engine, actual_sql = track_source.getTrackSource()
@@ -106,7 +102,7 @@ class TestTrackSource(unittest.TestCase):
                     # all ok, exception caught!
                     print " passed"
 
-            elif i['error'] == None:
+            elif i['error'] is None:
                 try:
                     track_source.getTrackSource()
                     # only testing the exceptions behaviour not the internal

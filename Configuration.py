@@ -1,10 +1,10 @@
 #! /usr/bin/env python2.7
-# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 import ConfigParser
 import argparse
 
-class Configuration:
+
+class Configuration(object):
 
     args = {
         'config_file': None,
@@ -27,12 +27,29 @@ class Configuration:
         parameters are stores in the args maps."""
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--inputfile', '-f', nargs=1, type=file, help='File containing the track graph in dot format to process.', required=True)
-        parser.add_argument('--configfile', '-c', nargs=1, type=file, help='File containing the DB connection settings.', required=True)
-        parser.add_argument('--date', '-d', nargs=1, type=int, help='The date in format YYYYMMDD, for example 20120521 for 2012-05-21.', required=True)
+        parser.add_argument(
+            '--inputfile', '-f',
+            nargs=1, type=file,
+            help='File containing the track graph in dot format to process.',
+            required=True
+        )
+
+        parser.add_argument(
+            '--configfile', '-c',
+            nargs=1, type=file,
+            help='File containing the DB connection settings.',
+            required=True
+        )
+
+        parser.add_argument(
+            '--date', '-d',
+            nargs=1, type=int,
+            help='The date in format YYYYMMDD, for example 20120521 for 2012-05-21.',
+            required=True
+        )
         arguments = parser.parse_args()
 
-        self.args['template_files'] = arguments.inputfile[0] # TODO: change to support multiple files
+        self.args['template_files'] = arguments.inputfile[0]  # TODO: change to support multiple files
         self.args['config_file'] = arguments.configfile[0]
 
         # TODO: Implement a way to validate the date (regex, date parser)
@@ -67,10 +84,11 @@ class Configuration:
         sqlalchemy."""
 
     # TODO: complicated, at time use interpolation directly in the conf file
-        if self.db['db_engine'] != None:
+        if self.db['db_engine'] is not None:
             return self.db['db_engine']
 
         elif self.db['db_type'] == 'mysql':
+            # TODO: change to use engine_from_config based on kwargs
             engine = self.db['db_type'] + "://" + self.db['db_user'] + ":" + self.db['db_pwd'] + "@" + self.db['db_ip'] + ":" + self.db['db_port'] + "/" + self.db['db_table_name']
 
         elif self.db['db_type'] == 'sqlite':
@@ -88,3 +106,5 @@ class Configuration:
 
     def getTemplates(self):
         return self.args['template_files']
+
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4

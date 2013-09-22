@@ -9,14 +9,18 @@
 
 import re
 
-class TemplateProcessor:
+
+class TemplateProcessor(object):
 
     track_data = None
-    track_count_map = None # just a shortcut for the moment, make private
-    var_delim_pattern = '^.*{{trackCount_([0-9]+)}}\s.*$'
+    track_count_map = None  # just a shortcut for the moment, make private
+    replace_pattern = '^.*{{trackCount_([0-9]+)}}\s.*$'
     matcher = None
     template_file = None
     date = None
+
+    def __init__(self):
+        pass
 
     def setTrackData(self, track_data):
 
@@ -25,10 +29,10 @@ class TemplateProcessor:
 
     def setMatcher(self, matcher=None):
 
-        if matcher == None:
-            self.matcher = re.compile(self.var_delim_pattern)
-        else:
+        if matcher:
             self.matcher = matcher
+        else:
+            self.matcher = re.compile(self.replace_pattern)
 
     def setDate(self, date):
 
@@ -57,7 +61,8 @@ class TemplateProcessor:
                 line = line.replace(placeholder, str(trackCount[int(track_id)]))
             else:
                 line = line.replace(placeholder, "0")
-        # FIXME: perhaps separate static part of template from non-static too boost some performance, but remember D. Knuth!
+        # FIXME: perhaps separate static part of template from non-static
+        # too boost some performance, but remember D. Knuth!
         if line.find('{{date}}'):
             line = line.replace('{{date}}', str(date))
 
