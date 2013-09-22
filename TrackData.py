@@ -11,7 +11,6 @@
 # author: Christoph Gierling
 # date 17.05.2012
 
-import sqlalchemy
 from sqlalchemy import create_engine
 
 class TrackData:
@@ -24,6 +23,9 @@ class TrackData:
 	[1, 10, 21, 211, 213, 70],
 	[1 , 11],
     ]
+
+    def __init__(self):
+        pass
 
     lost_tracks = {}
     track_count_map = {}
@@ -85,7 +87,7 @@ class TrackData:
         # gather next level of states in a separate list, for now limited to the 1st level
         level = level + 1
         tracks[level] = set()
-       
+
         for track_seq in self.track_graphs:
             tracks[level].add( track_seq[level] )
 
